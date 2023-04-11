@@ -53,10 +53,14 @@ app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 
+const http = require("http");
+
+const httpServer = http.createServer();
+
 app.listen(8100 || process.env.PORT, () => {
   console.log("Backend server is running!");
 });
-const io = require("socket.io")(8900, {
+const io = require("socket.io")(httpServer, {
   cors: {
     origin: "http://localhost:3000",
   },
